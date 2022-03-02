@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="cdq分治  cdq分治，就是把整个序列分成两半，计算左边的修改操作对右边查询的影响，然后对左右两个子序列重复这个过程 由于这个序列是按照时间的顺序来排列的，所以cdq分治也叫做基于时间的分治算法 正因为他是基于时间的，cdq分治可以花费log的复杂度将一个动态问题转化为一个相对简单的静态问题 所以到底是咋弄的呢 先看一个经典题目 lgP3372 线段树模板，普通区间加，区间求和 总所周知线段树">
@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-26T03:59:58.000Z">
 <meta property="article:modified_time" content="2022-02-28T13:00:58.657Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="coherentsubarray">
 <meta property="article:tag" content="notes">
 <meta name="twitter:card" content="summary">
 
@@ -166,7 +166,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/wallhaven-43zved.jpg">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="coherentsubarray">
       <meta itemprop="description" content="I am going to live every minute of it">
     </span>
 
@@ -297,7 +297,7 @@
 <div>
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>Post author:  </strong>John Doe
+    <strong>Post author:  </strong>coherentsubarray
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
@@ -391,9 +391,9 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="John Doe"
+    <img class="site-author-image" itemprop="image" alt="coherentsubarray"
       src="/images/wallhaven-43zved.jpg">
-  <p class="site-author-name" itemprop="name">John Doe</p>
+  <p class="site-author-name" itemprop="name">coherentsubarray</p>
   <div class="site-description" itemprop="description">I am going to live every minute of it</div>
 </div>
 <div class="site-state-wrap motion-element">
