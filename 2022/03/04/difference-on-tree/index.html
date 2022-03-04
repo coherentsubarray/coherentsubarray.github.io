@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/wallhaven-43zved.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/wallhaven-43zved.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/wallhaven-43zved.jpg">
+  <link rel="mask-icon" href="/images/wallhaven-43zved.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="树上差分  说树上差分,先看看差分 假如有一个数组 $a_1,a_2,…,a_n$  那么这个数组的差分数组 $b$ 就是 $bi&#x3D;b_i-b{i-1}$ 由于差分数组维护的是相邻数之间的差异 所以差分可以很轻松地处理大量区间修改加上少量单点求值的问题 既然序列上可以差分，那么树上能不能也差分呢？ 啊显然可以的 先看一个题目 lgP3128 题目大意 链上加法，最后统一询问点权 嗯嗯啊啊这很符合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="difference_on_tree">
+<meta property="og:url" content="http://example.com/2022/03/04/difference-on-tree/index.html">
+<meta property="og:site_name" content="Heren&#39;s warm cottage">
+<meta property="og:description" content="树上差分  说树上差分,先看看差分 假如有一个数组 $a_1,a_2,…,a_n$  那么这个数组的差分数组 $b$ 就是 $bi&#x3D;b_i-b{i-1}$ 由于差分数组维护的是相邻数之间的差异 所以差分可以很轻松地处理大量区间修改加上少量单点求值的问题 既然序列上可以差分，那么树上能不能也差分呢？ 啊显然可以的 先看一个题目 lgP3128 题目大意 链上加法，最后统一询问点权 嗯嗯啊啊这很符合">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-04T13:32:06.000Z">
+<meta property="article:modified_time" content="2022-03-04T13:33:29.793Z">
+<meta property="article:author" content="coherentsubarray">
+<meta property="article:tag" content="notes">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/03/04/difference-on-tree/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>difference_on_tree | Heren's warm cottage</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Heren's warm cottage</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">my blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/04/difference-on-tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/wallhaven-43zved.jpg">
+      <meta itemprop="name" content="coherentsubarray">
+      <meta itemprop="description" content="I am going to live every minute of it">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heren's warm cottage">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          difference_on_tree
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-04 21:32:06 / Modified: 21:33:29" itemprop="dateCreated datePublished" datetime="2022-03-04T21:32:06+08:00">2022-03-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithms/" itemprop="url" rel="index"><span itemprop="name">algorithms</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>树上差分</p>
+</blockquote>
+<p>说树上差分,先看看差分</p>
+<p>假如有一个数组 $a_1,a_2,…,a_n$ </p>
+<p>那么这个数组的差分数组 $b$ 就是 $b<em>i=b_i-b</em>{i-1}$</p>
+<p>由于差分数组维护的是相邻数之间的差异</p>
+<p>所以差分可以很轻松地处理大量区间修改加上少量单点求值的问题</p>
+<p>既然序列上可以差分，那么树上能不能也差分呢？</p>
+<p>啊显然可以的</p>
+<p>先看一个题目</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3128">lgP3128</a></p>
+<p>题目大意</p>
+<p>链上加法，最后统一询问点权</p>
+<p>嗯嗯啊啊这很符合差分的套路，所以考虑怎么在树上差分（？</p>
+<p>我们假设 $a_i$ 记录 $i$ 号点权值与 $i$ 号点子树（不含 $i$ 号点）权值和的差</p>
+<p>假如现在我们知道 1 号点的儿子为 2 3 ，3 号点的儿子为 4 5</p>
+<p>假设这 5 个点的权值分别为 3 5 4 7 7</p>
+<p>现在开始分析树上差分的算法</p>
+<p>按照刚才的分析，每个点对应的 $a$ 数组应该为 -20 5 -10 7 7</p>
+<p>统计一下，3 子树中的和是 14 ，加上 $a_3$ 后就变成了 4，符合结果</p>
+<p>所以就是这样子来求差分数组</p>
+<p>但问题是该怎么修改</p>
+<p>这个数组维护节点与子树差的性质，导致了我们在一个节点 $u$ 上给 $a$ 数组增加 $k$ 的同时也给上面所有的点都增加了 $k$ </p>
+<p>这样子下去，不难发现，这棵树上在 LCA 及以上的点全部都被进行了不必要的加法，</p>
+<p>（有关LCA与树上的链的关系以及LCA的求法暂时还没时间写，就默认会了？</p>
+<p>此时我们只需要讲 LCA 以上的点全部减掉2倍的 $k$ ，但是也要把 LCA 上加回来一个 $k$ ，毕竟 LCA 也在路径上啊</p>
+<p>于是这就是树上差分的精髓，希望我们都能理解清楚</p>
+<p><del>是不是？懂不懂？你理不理解我说的意思啊？</del></p>
+<p>把这理解清楚之后，代码不是难点了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> M=<span class="number">2e5</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>&#123;</span><br><span class="line">	<span class="type">int</span> ver,nxt;</span><br><span class="line">&#125;e[M];</span><br><span class="line"><span class="type">int</span> a[M];</span><br><span class="line"><span class="type">int</span> head[M],tot=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">	e[++tot].ver=y;</span><br><span class="line">	e[tot].nxt=head[x];</span><br><span class="line">	head[x]=tot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> f[M][<span class="number">30</span>];</span><br><span class="line"><span class="type">int</span> dep[M];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pre</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> fa)</span></span>&#123;</span><br><span class="line">	f[x][<span class="number">0</span>]=fa;</span><br><span class="line">	dep[x]=dep[fa]+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;(<span class="number">1</span>&lt;&lt;i)&lt;=dep[x];i++)&#123;</span><br><span class="line">		f[x][i]=f[f[x][i<span class="number">-1</span>]][i<span class="number">-1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=head[x];i;i=e[i].nxt)&#123;</span><br><span class="line">		<span class="type">int</span> y=e[i].ver;</span><br><span class="line">		<span class="keyword">if</span> (y==fa) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">pre</span>(y,x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (dep[x]&gt;dep[y]) <span class="built_in">swap</span>(x,y);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="built_in">log2</span>(dep[y]);i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">		<span class="keyword">if</span> (dep[f[y][i]]&gt;=dep[x])&#123;</span><br><span class="line">			y=f[y][i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (x==y) <span class="keyword">return</span> x;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="built_in">log2</span>(dep[x]);i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">		<span class="keyword">if</span> (f[x][i]!=f[y][i])&#123;</span><br><span class="line">			x=f[x][i];</span><br><span class="line">			y=f[y][i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> f[x][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> fa)</span></span>&#123;<span class="comment">//对差分数组进行前缀和统计</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=head[x];i;i=e[i].nxt)&#123;</span><br><span class="line">		<span class="type">int</span> y=e[i].ver;</span><br><span class="line">		<span class="keyword">if</span> (y==fa) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">dfs</span>(y,x);</span><br><span class="line">		a[x]+=a[y];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> n,k;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;n,&amp;k);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;x,&amp;y);</span><br><span class="line">		<span class="built_in">add</span>(x,y);</span><br><span class="line">		<span class="built_in">add</span>(y,x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">pre</span>(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=k;i++)&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;x,&amp;y);</span><br><span class="line">		a[x]++;</span><br><span class="line">		a[y]++;</span><br><span class="line">		<span class="type">int</span> lca=<span class="built_in">query</span>(x,y);</span><br><span class="line">		a[lca]--;</span><br><span class="line">		a[f[lca][<span class="number">0</span>]]--;<span class="comment">//树上差分精髓</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">dfs</span>(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="type">int</span> ans=<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		ans=<span class="built_in">max</span>(ans,a[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3258">lgP3258</a></p>
+<p>这题差不多也是模板，只不过要注意最后一个点不计入的细节</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>coherentsubarray
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://example.com/2022/03/04/difference-on-tree/" title="difference_on_tree">http://example.com/2022/03/04/difference-on-tree/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/26/10/" rel="prev" title="10">
+      <i class="fa fa-chevron-left"></i> 10
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="coherentsubarray"
+      src="/images/wallhaven-43zved.jpg">
+  <p class="site-author-name" itemprop="name">coherentsubarray</p>
+  <div class="site-description" itemprop="description">I am going to live every minute of it</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/coherentsubarray" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;coherentsubarray" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">coherentsubarray</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

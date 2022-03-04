@@ -158,6 +158,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/04/difference-on-tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/wallhaven-43zved.jpg">
+      <meta itemprop="name" content="coherentsubarray">
+      <meta itemprop="description" content="I am going to live every minute of it">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Heren's warm cottage">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/04/difference-on-tree/" class="post-title-link" itemprop="url">difference_on_tree</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-04 21:32:06 / Modified: 21:33:29" itemprop="dateCreated datePublished" datetime="2022-03-04T21:32:06+08:00">2022-03-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithms/" itemprop="url" rel="index"><span itemprop="name">algorithms</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>树上差分</p>
+</blockquote>
+<p>说树上差分,先看看差分</p>
+<p>假如有一个数组 $a_1,a_2,…,a_n$ </p>
+<p>那么这个数组的差分数组 $b$ 就是 $b<em>i=b_i-b</em>{i-1}$</p>
+<p>由于差分数组维护的是相邻数之间的差异</p>
+<p>所以差分可以很轻松地处理大量区间修改加上少量单点求值的问题</p>
+<p>既然序列上可以差分，那么树上能不能也差分呢？</p>
+<p>啊显然可以的</p>
+<p>先看一个题目</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3128">lgP3128</a></p>
+<p>题目大意</p>
+<p>链上加法，最后统一询问点权</p>
+<p>嗯嗯啊啊这很符合差分的套路，所以考虑怎么在树上差分（？</p>
+<p>我们假设 $a_i$ 记录 $i$ 号点权值与 $i$ 号点子树（不含 $i$ 号点）权值和的差</p>
+<p>假如现在我们知道 1 号点的儿子为 2 3 ，3 号点的儿子为 4 5</p>
+<p>假设这 5 个点的权值分别为 3 5 4 7 7</p>
+<p>现在开始分析树上差分的算法</p>
+<p>按照刚才的分析，每个点对应的 $a$ 数组应该为 -20 5 -10 7 7</p>
+<p>统计一下，3 子树中的和是 14 ，加上 $a_3$ 后就变成了 4，符合结果</p>
+<p>所以就是这样子来求差分数组</p>
+<p>但问题是该怎么修改</p>
+<p>这个数组维护节点与子树差的性质，导致了我们在一个节点 $u$ 上给 $a$ 数组增加 $k$ 的同时也给上面所有的点都增加了 $k$ </p>
+<p>这样子下去，不难发现，这棵树上在 LCA 及以上的点全部都被进行了不必要的加法，</p>
+<p>（有关LCA与树上的链的关系以及LCA的求法暂时还没时间写，就默认会了？</p>
+<p>此时我们只需要讲 LCA 以上的点全部减掉2倍的 $k$ ，但是也要把 LCA 上加回来一个 $k$ ，毕竟 LCA 也在路径上啊</p>
+<p>于是这就是树上差分的精髓，希望我们都能理解清楚</p>
+<p><del>是不是？懂不懂？你理不理解我说的意思啊？</del></p>
+<p>把这理解清楚之后，代码不是难点了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> M=<span class="number">2e5</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>&#123;</span><br><span class="line">	<span class="type">int</span> ver,nxt;</span><br><span class="line">&#125;e[M];</span><br><span class="line"><span class="type">int</span> a[M];</span><br><span class="line"><span class="type">int</span> head[M],tot=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">	e[++tot].ver=y;</span><br><span class="line">	e[tot].nxt=head[x];</span><br><span class="line">	head[x]=tot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> f[M][<span class="number">30</span>];</span><br><span class="line"><span class="type">int</span> dep[M];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pre</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> fa)</span></span>&#123;</span><br><span class="line">	f[x][<span class="number">0</span>]=fa;</span><br><span class="line">	dep[x]=dep[fa]+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;(<span class="number">1</span>&lt;&lt;i)&lt;=dep[x];i++)&#123;</span><br><span class="line">		f[x][i]=f[f[x][i<span class="number">-1</span>]][i<span class="number">-1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=head[x];i;i=e[i].nxt)&#123;</span><br><span class="line">		<span class="type">int</span> y=e[i].ver;</span><br><span class="line">		<span class="keyword">if</span> (y==fa) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">pre</span>(y,x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (dep[x]&gt;dep[y]) <span class="built_in">swap</span>(x,y);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="built_in">log2</span>(dep[y]);i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">		<span class="keyword">if</span> (dep[f[y][i]]&gt;=dep[x])&#123;</span><br><span class="line">			y=f[y][i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (x==y) <span class="keyword">return</span> x;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="built_in">log2</span>(dep[x]);i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">		<span class="keyword">if</span> (f[x][i]!=f[y][i])&#123;</span><br><span class="line">			x=f[x][i];</span><br><span class="line">			y=f[y][i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> f[x][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> fa)</span></span>&#123;<span class="comment">//对差分数组进行前缀和统计</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=head[x];i;i=e[i].nxt)&#123;</span><br><span class="line">		<span class="type">int</span> y=e[i].ver;</span><br><span class="line">		<span class="keyword">if</span> (y==fa) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">dfs</span>(y,x);</span><br><span class="line">		a[x]+=a[y];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> n,k;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;n,&amp;k);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;x,&amp;y);</span><br><span class="line">		<span class="built_in">add</span>(x,y);</span><br><span class="line">		<span class="built_in">add</span>(y,x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">pre</span>(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=k;i++)&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>,&amp;x,&amp;y);</span><br><span class="line">		a[x]++;</span><br><span class="line">		a[y]++;</span><br><span class="line">		<span class="type">int</span> lca=<span class="built_in">query</span>(x,y);</span><br><span class="line">		a[lca]--;</span><br><span class="line">		a[f[lca][<span class="number">0</span>]]--;<span class="comment">//树上差分精髓</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">dfs</span>(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="type">int</span> ans=<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		ans=<span class="built_in">max</span>(ans,a[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3258">lgP3258</a></p>
+<p>这题差不多也是模板，只不过要注意最后一个点不计入的细节</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/26/10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -189,7 +289,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-27 15:44:13" itemprop="dateModified" datetime="2022-02-27T15:44:13+08:00">2022-02-27</time>
+                <time title="Modified: 2022-03-04 21:33:42" itemprop="dateModified" datetime="2022-03-04T21:33:42+08:00">2022-03-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -228,7 +328,6 @@
 <p>“Good. As to him, exile him to Roll.”She <em>threw a glance</em> at me, <em>which</em> disgusted me.</p>
 <p>Then I was removed onto a truck ,<em>along with</em> the sphere <em>containing</em> me. I sighed in despair, <em>presuming</em> <em>that</em> it was <em>the end of the line</em>. </p>
 <p>25 highlights</p>
-<p>$\scriptstyle\text{Unauthorized reproduction is prohibited}$</p>
 
       
     </div>
@@ -279,7 +378,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-28 21:00:58" itemprop="dateModified" datetime="2022-02-28T21:00:58+08:00">2022-02-28</time>
+                <time title="Modified: 2022-03-04 21:33:52" itemprop="dateModified" datetime="2022-03-04T21:33:52+08:00">2022-03-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -372,7 +471,6 @@
 <p>剩下处理答案要注意的就是些细节了</p>
 <p>核心代码也不过这么几行</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">slv</span><span class="params">(<span class="type">int</span> l,<span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (l&gt;=r) <span class="keyword">return</span> ;</span><br><span class="line">	<span class="type">int</span> mid=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">slv</span>(l,mid);</span><br><span class="line">	<span class="built_in">sort</span>(a+l,a+r+<span class="number">1</span>,cmp);<span class="comment">//按x排序</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=l;i&lt;=r;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[i].op==<span class="number">1</span>&amp;&amp;a[i].id&lt;=mid)&#123;</span><br><span class="line">			<span class="built_in">add</span>(a[i].y1,a[i].sum);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> ((a[i].op==<span class="number">2</span>||a[i].op==<span class="number">3</span>)&amp;&amp;a[i].id&gt;=mid+<span class="number">1</span>)&#123;<span class="comment">//这里op==3表示的是询问的右端点</span></span><br><span class="line">			a[i].sum+=<span class="built_in">query</span>(a[i].y2)-<span class="built_in">query</span>(a[i].y1<span class="number">-1</span>);<span class="comment">//树状数组动态维护前缀和</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=l;i&lt;=r;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[i].op==<span class="number">1</span>&amp;&amp;a[i].id&lt;=mid)&#123;</span><br><span class="line">			<span class="built_in">add</span>(a[i].y1,-a[i].sum);<span class="comment">//清空树状数组</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">sort</span>(a+l,a+r+<span class="number">1</span>,cmp2);<span class="comment">//还原</span></span><br><span class="line">	<span class="built_in">slv</span>(mid+<span class="number">1</span>,r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>$\scriptstyle\text{Unauthorized reproduction is prohibited}$</p>
 
       
     </div>
@@ -527,7 +625,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
