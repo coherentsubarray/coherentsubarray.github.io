@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="cdq分治  cdq分治，就是把整个序列分成两半，计算左边的修改操作对右边查询的影响，然后对左右两个子序列重复这个过程 由于这个序列是按照时间的顺序来排列的，所以cdq分治也叫做基于时间的分治算法 正因为他是基于时间的，cdq分治可以花费log的复杂度将一个动态问题转化为一个相对简单的静态问题 所以到底是咋弄的呢 先看一个经典题目 lgP3372 线段树模板，普通区间加，区间求和 总所周知线段树">
+  <meta name="description" content="cdq分治  原文链接 cdq分治，就是把整个序列分成两半，计算左边的修改操作对右边查询的影响，然后对左右两个子序列重复这个过程 由于这个序列是按照时间的顺序来排列的，所以cdq分治也叫做基于时间的分治算法 正因为他是基于时间的，cdq分治可以花费log的复杂度将一个动态问题转化为一个相对简单的静态问题 所以到底是咋弄的呢 先看一个经典题目 lgP3372 线段树模板，普通区">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cdqdc">
 <meta property="og:url" content="http://example.com/2022/02/26/cdqdc/index.html">
 <meta property="og:site_name" content="coherentsubarray&#39;s warm cottage">
-<meta property="og:description" content="cdq分治  cdq分治，就是把整个序列分成两半，计算左边的修改操作对右边查询的影响，然后对左右两个子序列重复这个过程 由于这个序列是按照时间的顺序来排列的，所以cdq分治也叫做基于时间的分治算法 正因为他是基于时间的，cdq分治可以花费log的复杂度将一个动态问题转化为一个相对简单的静态问题 所以到底是咋弄的呢 先看一个经典题目 lgP3372 线段树模板，普通区间加，区间求和 总所周知线段树">
+<meta property="og:description" content="cdq分治  原文链接 cdq分治，就是把整个序列分成两半，计算左边的修改操作对右边查询的影响，然后对左右两个子序列重复这个过程 由于这个序列是按照时间的顺序来排列的，所以cdq分治也叫做基于时间的分治算法 正因为他是基于时间的，cdq分治可以花费log的复杂度将一个动态问题转化为一个相对简单的静态问题 所以到底是咋弄的呢 先看一个经典题目 lgP3372 线段树模板，普通区">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-26T03:59:58.000Z">
-<meta property="article:modified_time" content="2022-04-05T14:35:46.614Z">
+<meta property="article:modified_time" content="2022-04-11T01:48:37.745Z">
 <meta property="article:author" content="coherentsubarray">
 <meta property="article:tag" content="notes">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-05 22:35:46" itemprop="dateModified" datetime="2022-04-05T22:35:46+08:00">2022-04-05</time>
+                <time title="Modified: 2022-04-11 09:48:37" itemprop="dateModified" datetime="2022-04-11T09:48:37+08:00">2022-04-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -218,6 +218,8 @@
         <blockquote>
 <p>cdq分治</p>
 </blockquote>
+<p><a
+target="_blank" rel="noopener" href="https://coherentsubarray.github.io/2022/02/26/cdqdc/">原文链接</a></p>
 <p>cdq分治，就是把整个序列分成两半，计算左边的修改操作对右边查询的影响，然后对左右两个子序列重复这个过程</p>
 <p>由于这个序列是按照时间的顺序来排列的，所以cdq分治也叫做基于时间的分治算法</p>
 <p>正因为他是基于时间的，cdq分治可以花费log的复杂度将一个动态问题转化为一个相对简单的静态问题</p>
@@ -229,14 +231,19 @@
 <p>那么怎么离线变成静态的呢</p>
 <p>按照上面刚才的思路</p>
 <p>我们先把所有的操作打上一个时间标记，记为 <code>id</code></p>
-<p>同时，对于进来的每一个操作，如果是赋值，<code>opt</code> 记为1，反之为0</p>
-<p>一开始整个序列的初始值可以看作在 $[i,i]$ 这个区间内加上了 $a_i$ ，所以也可以把他看作一个赋值操作</p>
-<p>这 $n+m$ 个操作按时间排好序（已经有序了？）后就开始重头戏——分治了</p>
+<p>同时，对于进来的每一个操作，如果是赋值，<code>opt</code>
+记为1，反之为0</p>
+<p>一开始整个序列的初始值可以看作在 <span
+class="math inline">\([i,i]\)</span> 这个区间内加上了 <span
+class="math inline">\(a_i\)</span> ，所以也可以把他看作一个赋值操作</p>
+<p>这 <span class="math inline">\(n+m\)</span>
+个操作按时间排好序（已经有序了？）后就开始重头戏——分治了</p>
 <p>首先看到基本思想就是</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">slv</span><span class="params">(<span class="type">int</span> l,<span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l&gt;=r) <span class="keyword">return</span> ;</span><br><span class="line">    <span class="type">int</span> mid=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="built_in">slv</span>(l,mid);</span><br><span class="line">    <span class="built_in">slv</span>(mid+<span class="number">1</span>,r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>考虑怎么在低复杂度内维护信息</p>
 <p>看到这里面所有的修改查询都与区间有关，考虑前缀和与差分</p>
-<p>对于 l~mid 这一段区间，我们只处理区间加操作，在差分数组上进行两端的加减</p>
+<p>对于 l~mid
+这一段区间，我们只处理区间加操作，在差分数组上进行两端的加减</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=l;i&lt;=mid;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (e[i].op==<span class="number">1</span>)&#123;</span><br><span class="line">        s[e[i].l]+=e[i].val;</span><br><span class="line">        s[e[i].r+<span class="number">1</span>]-=e[i].val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>后面查询区间肯定是要利用前缀和的</p>
 <p>所以将差分数组做两次前缀和即可</p>
@@ -250,7 +257,8 @@
 <p>看上去有点难</p>
 <p>于是一波操作直接套一个cdq分治把他转化成静态问题，多一个log</p>
 <p>和上面那题一样，把每一个三元组变成询问和插入两个操作，方便时间上处理</p>
-<p>这题要 $\leq$ ，所以询问的优先级要低于插入</p>
+<p>这题要 <span class="math inline">\(\leq\)</span>
+，所以询问的优先级要低于插入</p>
 <p>把第一维看成时间维度，首先按第一维排序，排好序以后按顺序重新将第一维打上时间戳，把第一维的范围从值域转化为时间</p>
 <p>第二维则是在分治过程中排序，注意要开一个辅助数组记录原始按第一维排好序的数组，因为每次排序会导致原数组的变化，对其他的求解可能有影响</p>
 <p>不难发现，在自底向上求解的过程中，两段中的数组都是按第二维排好序的，是不是归并会快一些（？</p>
@@ -272,12 +280,23 @@
 <p>但是看看数据范围，这样子显然是不可做的</p>
 <p>动态的很难，那么先考虑静态，只有区间求和怎么做</p>
 <p>很明显下一步就是把所有询问按横坐标排序，然后扫描线</p>
-<p>扫描线初始为空，每当遇到一个纵坐标为 $y$ 的点，就在扫描线数组对应的地方加上 $y$ 这个点对应的值</p>
-<p>当询问 $x_1,y_1,x_2,y_2$ 中的值时，把 $x_1-1$ 这一列上 $y_1$ 和 $y_2$ 之间的和求出来，再把 $x_2$ 做相同处理，差分即可求出答案</p>
-<p>得到了静态的解法，剩下的就只有把动态转化成静态了，而这就是 cdq分治 做的事情</p>
-<p>和扫描线一样，我们也要把每一个询问操作拆成 $x_1-1$ 和 $x_2$ 上的两个操作，方便做前缀和</p>
+<p>扫描线初始为空，每当遇到一个纵坐标为 <span
+class="math inline">\(y\)</span> 的点，就在扫描线数组对应的地方加上
+<span class="math inline">\(y\)</span> 这个点对应的值</p>
+<p>当询问 <span class="math inline">\(x_1,y_1,x_2,y_2\)</span>
+中的值时，把 <span class="math inline">\(x_1-1\)</span> 这一列上 <span
+class="math inline">\(y_1\)</span> 和 <span
+class="math inline">\(y_2\)</span> 之间的和求出来，再把 <span
+class="math inline">\(x_2\)</span> 做相同处理，差分即可求出答案</p>
+<p>得到了静态的解法，剩下的就只有把动态转化成静态了，而这就是 cdq分治
+做的事情</p>
+<p>和扫描线一样，我们也要把每一个询问操作拆成 <span
+class="math inline">\(x_1-1\)</span> 和 <span
+class="math inline">\(x_2\)</span> 上的两个操作，方便做前缀和</p>
 <p>由于题目已经按时间顺序给出了操作，所以不必额外排序</p>
-<p>考虑分治的主体怎么操作？肯定是在 $[l,r]$ 中按照横坐标排序，接着就是经典的按时间分治，只考虑时间戳在左半边的修改和右半边的询问</p>
+<p>考虑分治的主体怎么操作？肯定是在 <span
+class="math inline">\([l,r]\)</span>
+中按照横坐标排序，接着就是经典的按时间分治，只考虑时间戳在左半边的修改和右半边的询问</p>
 <p>问题又来了，既然要修改，还要求前缀和，怎么维护？</p>
 <p>啊，这下树状数组又来了！</p>
 <p>不过为了保证复杂度，树状数组清空应该把加上的数一个一个减掉</p>
@@ -286,30 +305,49 @@
 <p>核心代码也不过这么几行</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">slv</span><span class="params">(<span class="type">int</span> l,<span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (l&gt;=r) <span class="keyword">return</span> ;</span><br><span class="line">	<span class="type">int</span> mid=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">slv</span>(l,mid);</span><br><span class="line">	<span class="built_in">sort</span>(a+l,a+r+<span class="number">1</span>,cmp);<span class="comment">//按x排序</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=l;i&lt;=r;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[i].op==<span class="number">1</span>&amp;&amp;a[i].id&lt;=mid)&#123;</span><br><span class="line">			<span class="built_in">add</span>(a[i].y1,a[i].sum);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> ((a[i].op==<span class="number">2</span>||a[i].op==<span class="number">3</span>)&amp;&amp;a[i].id&gt;=mid+<span class="number">1</span>)&#123;<span class="comment">//这里op==3表示的是询问的右端点</span></span><br><span class="line">			a[i].sum+=<span class="built_in">query</span>(a[i].y2)-<span class="built_in">query</span>(a[i].y1<span class="number">-1</span>);<span class="comment">//树状数组动态维护前缀和</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=l;i&lt;=r;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[i].op==<span class="number">1</span>&amp;&amp;a[i].id&lt;=mid)&#123;</span><br><span class="line">			<span class="built_in">add</span>(a[i].y1,-a[i].sum);<span class="comment">//清空树状数组</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">sort</span>(a+l,a+r+<span class="number">1</span>,cmp2);<span class="comment">//还原</span></span><br><span class="line">	<span class="built_in">slv</span>(mid+<span class="number">1</span>,r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5459">lgP5459</a></p>
-<p>可能是史上最水 $\color{purple}\text{紫}$ 题</p>
+<p>可能是史上最水 <span
+class="math inline">\(\color{purple}\text{紫}\)</span> 题</p>
 <p>然而调了半小时/fn/fn</p>
 <p>看看是怎么回事</p>
 <p>看到标签里面cdq分治，考虑怎么cdq分治</p>
 <p><del>原本想靠着这个题目学学权值线段树的，但是又忍不住写了cdq</del></p>
 <p>看到区间问题，还是区间和无修改，显然用前缀和优化</p>
-<p>那么满足条件的区间 $i,j$ 也就等价于满足 $L\leq s[j]-s[i] \leq R$ </p>
+<p>那么满足条件的区间 <span class="math inline">\(i,j\)</span>
+也就等价于满足 <span class="math inline">\(L\leq s[j]-s[i] \leq
+R\)</span></p>
 <p>根据cdq分治的套路，统计左边对右边的贡献</p>
-<p>在这里，我们要统计的则是左边有多少个 $i$ ，对于右边的一个 $j$ ，使得上面的式子成立</p>
+<p>在这里，我们要统计的则是左边有多少个 <span
+class="math inline">\(i\)</span> ，对于右边的一个 <span
+class="math inline">\(j\)</span> ，使得上面的式子成立</p>
 <p>观察到左边的区间是不随着右边询问的变化而变化的</p>
-<p>这样，我们可以对左边的数组进行排序，询问时直接在排序后的数组上面二分 $\cdots ①$</p>
+<p>这样，我们可以对左边的数组进行排序，询问时直接在排序后的数组上面二分
+<span class="math inline">\(\cdots ①\)</span></p>
 <p>既然是二分，细节就是必须要注意的地方了</p>
-<p>首先是端点问题，二分的值是 $s[j]-L,R$ ，显然 $s[j]-R$ 在左边，左边统计答案要保证二分的左端点是在区间内最左边的一个答案，右边则是在区间外第一个答案，这样右边减去左边得到的就是整个区间内的答案，具体实现细节见代码</p>
+<p>首先是端点问题，二分的值是 <span
+class="math inline">\(s[j]-L,R\)</span> ，显然 <span
+class="math inline">\(s[j]-R\)</span>
+在左边，左边统计答案要保证二分的左端点是在区间内最左边的一个答案，右边则是在区间外第一个答案，这样右边减去左边得到的就是整个区间内的答案，具体实现细节见代码</p>
 <p>最大的坑点来了，<strong>要从0开始分治</strong>！！</p>
 <p>仔细思考一下按上面这样写的怎么连样例都过不了<del>不要问我是怎么知道的</del></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5 5 9</span><br><span class="line">1 2 3 4 5</span><br></pre></td></tr></table></figure>
-<p>仔细看一下，我们前面用的前缀和相减，有没有减到 $s[0]$？</p>
-<p>然而样例中有一个答案则是 $s[3]-s[0]$ ，也就是 $s[3]$ </p>
-<p>所以别排除了 $s[0]$ ，这也可以避开全是负数的坑</p>
+<p>仔细看一下，我们前面用的前缀和相减，有没有减到 <span
+class="math inline">\(s[0]\)</span>？</p>
+<p>然而样例中有一个答案则是 <span
+class="math inline">\(s[3]-s[0]\)</span> ，也就是 <span
+class="math inline">\(s[3]\)</span></p>
+<p>所以别排除了 <span class="math inline">\(s[0]\)</span>
+，这也可以避开全是负数的坑</p>
 <p>最后的坑点，我记得答案要开<code>long long</code>，但是忘了前缀和数组也要开</p>
 <p>嗯啊嗯啊到这里应该就做完了</p>
 <p>所以这个cdq只有40行（有些变量名可能不同）</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long </span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> M=<span class="number">1e5</span>+<span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> a[M];</span><br><span class="line"><span class="type">int</span> s[M];</span><br><span class="line"><span class="type">int</span> b[M];</span><br><span class="line"><span class="type">int</span> tot=<span class="number">0</span>;</span><br><span class="line"><span class="type">long</span> <span class="type">long</span> ans=<span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> L,R;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">slv</span><span class="params">(<span class="type">int</span> l,<span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (l&gt;=r) <span class="keyword">return</span>;</span><br><span class="line">	<span class="type">int</span> mid=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">slv</span>(l,mid);</span><br><span class="line">	tot=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=l;i&lt;=mid;i++)&#123;</span><br><span class="line">		b[++tot]=s[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">sort</span>(b+<span class="number">1</span>,b+tot+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=mid+<span class="number">1</span>;i&lt;=r;i++)&#123;</span><br><span class="line">		<span class="type">int</span> t2=<span class="built_in">upper_bound</span>(b+<span class="number">1</span>,b+<span class="number">1</span>+tot,s[i]-L)-b;</span><br><span class="line">		<span class="type">int</span> t1=<span class="built_in">lower_bound</span>(b+<span class="number">1</span>,b+<span class="number">1</span>+tot,s[i]-R)-b;</span><br><span class="line">		ans+=t2-t1;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">slv</span>(mid+<span class="number">1</span>,r);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld%lld&quot;</span>,&amp;n,&amp;L,&amp;R);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>,&amp;a[i]);</span><br><span class="line">		s[i]=s[i<span class="number">-1</span>]+a[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">slv</span>(<span class="number">0</span>,n);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>,ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>①：直接用快排的话复杂度是 $O(n\log^2n)$ 的，但是这里下面一步二分限制了复杂度也只能是 $O(n\log^2n)$ ，lg 上好多用队列的，我不理解，但是他们如果要严格 $O(n\log n)$ 的话要归并排序，这样其实更能体现 cdq分治 的本质</p>
+<p>①：直接用快排的话复杂度是 <span
+class="math inline">\(O(n\log^2n)\)</span>
+的，但是这里下面一步二分限制了复杂度也只能是 <span
+class="math inline">\(O(n\log^2n)\)</span> ，lg
+上好多用队列的，我不理解，但是他们如果要严格 <span
+class="math inline">\(O(n\log n)\)</span>
+的话要归并排序，这样其实更能体现 cdq分治 的本质</p>
 
     </div>
 
