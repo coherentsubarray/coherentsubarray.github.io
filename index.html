@@ -1,108 +1,385 @@
-<!DOCTYPE html><html><head>
-      <title>index</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
-      
-      
-      
-      
-      
-      <style>
-      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
-/* Please visit the URL below for more information: */
-/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
-      /* 深色主题样式 */
-            body {
-            background-color: #1a1a1a !important;
-            color: #ffffff !important;
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My CyberSpace | 个人主页</title>
+    <style>
+        /* --- 全局变量 (深色主题调整) --- */
+        :root {
+            /* 背景改为极深的黑色/炭黑色 */
+            --bg-color: #050505; 
+            /* 卡片背景调暗，增加透明度 */
+            --card-bg: rgba(20, 20, 25, 0.7);
+            --text-main: #ffffff;
+            --text-sec: #b0b0c0;
+            /* 保持霓虹配色用于对比 */
+            --accent-cyan: #00f3ff;
+            --accent-purple: #bc13fe;
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            /* 背景光晕稍微调暗，融入黑色背景 */
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.1), transparent 30%),
+                radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.1), transparent 30%);
+            background-attachment: fixed;
+        }
+
+        /* --- 导航栏 --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%; padding: 1rem;
+            display: flex; justify-content: center;
+            backdrop-filter: blur(12px);
+            background: rgba(5, 5, 5, 0.8); /* 导航栏更黑 */
+            border-bottom: var(--glass-border);
+            z-index: 1000;
+        }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-btn {
+            cursor: pointer; color: var(--text-sec); font-weight: 600;
+            padding: 0.5rem 1rem; transition: 0.3s; position: relative;
+        }
+        .nav-btn:hover, .nav-btn.active { color: white; text-shadow: 0 0 8px var(--accent-cyan); }
+        .nav-btn.active::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
+            background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        /* --- 主容器 --- */
+        .container { max-width: 900px; margin: 80px auto 100px; padding: 20px; }
+        
+        .page-section { display: none; animation: slideUp 0.5s ease; }
+        .page-section.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1, h2 { margin-bottom: 1.5rem; color: white; }
+        h2 { border-left: 4px solid var(--accent-purple); padding-left: 15px; }
+
+        /* --- 卡片通用样式 --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .card {
+            background: var(--card-bg); border: var(--glass-border);
+            border-radius: 12px; padding: 20px; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .card:hover {
+            transform: translateY(-5px); border-color: var(--accent-cyan);
+            box-shadow: 0 5px 25px rgba(0, 243, 255, 0.1);
+            background: rgba(30, 30, 35, 0.8);
+        }
+
+        /* --- 博客样式 --- */
+        .blog-post {
+            background: rgba(255,255,255,0.02); border-radius: 12px;
+            padding: 25px; margin-bottom: 25px; border: var(--glass-border);
+        }
+        .blog-date { color: var(--accent-cyan); font-size: 0.9rem; margin-bottom: 8px; display: block; }
+        .blog-content { color: var(--text-sec); line-height: 1.6; margin-top: 10px; white-space: pre-wrap; }
+        
+        /* 代码生成器样式 */
+        .code-generator {
+            background: #111; padding: 15px; border-radius: 8px;
+            margin-bottom: 30px; border: 1px dashed #444;
+        }
+        .code-generator h3 { font-size: 1rem; color: #aaa; margin-bottom: 10px; }
+        .code-box {
+            width: 100%; height: 80px; background: #000; color: #0f0;
+            font-family: monospace; border: 1px solid #333; padding: 10px; font-size: 0.8rem;
+            resize: none;
+        }
+
+        /* --- 悬浮球拖动容器 --- */
+        #agent-dragger {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 60px;
+            height: auto;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 拖动手柄 */
+        .drag-handle {
+            width: 40px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            border-radius: 12px;
+            cursor: grab;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            transition: background 0.2s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .drag-handle:hover { background: var(--accent-cyan); }
+        .drag-handle:active { cursor: grabbing; background: var(--accent-purple); }
+        
+        .drag-icon {
+            width: 20px; height: 4px; border-top: 2px solid rgba(255,255,255,0.8); border-bottom: 2px solid rgba(255,255,255,0.8);
+        }
+
+        /* 强制覆盖 SDK 样式 */
+        #agent-dragger .embed-lite-container, 
+        #agent-dragger div[class*="embed"] {
+            position: static !important;
+            margin: 0 !important;
+            transform: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul class="nav-links">
+            <li class="nav-btn active" onclick="showPage('home')">主页</li>
+            <li class="nav-btn" onclick="showPage('courses')">课表</li>
+            <li class="nav-btn" onclick="showPage('projects')">项目</li>
+            <li class="nav-btn" onclick="showPage('blog')">博客</li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- 1. 主页 -->
+        <section id="home" class="page-section active">
+            <div style="text-align:center; margin-top: 10vh;">
+                <h1 style="font-size: 3.5rem; text-shadow: 0 0 20px rgba(188,19,254,0.5);">
+                    HELLO <span style="color:var(--accent-cyan)">WORLD</span>
+                </h1>
+                <p style="color:var(--text-sec); font-size: 1.2rem; max-width: 600px; margin: 20px auto;">
+                    这是一个纯静态的 GitHub Pages 个人主页。<br>
+                    集成 AI 智能体，数据配置化，暗夜赛博风格。<br>
+                    右侧的悬浮球是糖尿病咨询AI智能体。
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. 课表 -->
+        <section id="courses" class="page-section">
+            <h2>🎓 选课清单</h2>
+            <div class="grid">
+                <div class="card"><h3>生物化学</h3><p style="color:#777">进行中</p></div>
+                <div class="card"><h3>人工智能导论</h3><p style="color:#777">进行中</p></div>
+                <div class="card"><h3>系统解剖学</h3><p style="color:#777">进行中</p></div>
+                <div class="card"><h3>生理学</h3><p style="color:#777">进行中</p></div>
+            </div>
+        </section>
+
+        <!-- 3. 项目 -->
+        <section id="projects" class="page-section">
+            <h2>💻 在做项目</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>GitHub Pages 个人站</h3>
+                    <div style="height:4px; background:#222; margin:10px 0;"><div style="width:90%; height:100%; background:var(--accent-cyan);"></div></div>
+                    <p style="font-size:0.8rem; color:#777">纯前端实现，无后端依赖</p>
+                </div>
+                <div class="card">
+                    <h3>AI 知识库助手</h3>
+                    <div style="height:4px; background:#222; margin:10px 0;"><div style="width:40%; height:100%; background:var(--accent-purple);"></div></div>
+                    <p style="font-size:0.8rem; color:#777">首页的糖尿病助手是最新项目</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 博客 -->
+        <section id="blog" class="page-section">
+            <h2>📝 博客空间</h2>
+            
+            <!-- 提示区 -->
+            <div style="background: rgba(255,165,0,0.05); border: 1px solid rgba(255,165,0,0.3); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; color: #ccaa88;">
+                <strong>GitHub Pages 提示：</strong> 
+                由于这是静态网页，请使用下方的生成器生成代码，然后<b>复制并粘贴到 index.html 的 `myBlogPosts` 数组中</b>，最后提交到 GitHub 以发布新文章。
+            </div>
+
+            <!-- 代码生成器 -->
+            <div class="code-generator">
+                <h3>🛠️ 新文章代码生成器</h3>
+                <input type="text" id="new-title" placeholder="标题" style="background:#222; border:1px solid #444; color:white; padding:8px; width:100%; margin-bottom:8px; border-radius:4px;">
+                <textarea id="new-content" placeholder="内容" style="background:#222; border:1px solid #444; color:white; padding:8px; width:100%; height:60px; resize:vertical; border-radius:4px;"></textarea>
+                <button onclick="generateCode()" style="margin-top:8px; background:var(--accent-cyan); color:black; border:none; padding:6px 15px; cursor:pointer; font-weight:bold; border-radius:4px;">生成代码</button>
+                <div style="margin-top:10px; font-size:0.8rem; color:#666;">复制下面的代码添加到 HTML 文件底部的 JS 区域：</div>
+                <textarea id="code-output" class="code-box" readonly></textarea>
+            </div>
+
+            <!-- 文章列表容器 -->
+            <div id="blog-container"></div>
+        </section>
+    </div>
+
+    <!-- 悬浮球拖拽容器 -->
+    <div id="agent-dragger">
+        <!-- 拖动手柄 -->
+        <div class="drag-handle" id="drag-handle" title="按住我来拖动气泡">
+            <div class="drag-icon"></div>
+        </div>
+        <!-- SDK 的气泡会被 JS 移动到这里 -->
+    </div>
+
+    <!-- 引入 SDK -->
+    <script src="https://agi-dev-platform-web.cdn.bcebos.com/ai_apaas/embed/output/embedLiteSDK.js?responseExpires=0&t=1763775736837"></script>
+
+    <script>
+        // ==========================================
+        // 1. 博客数据配置区 (请在这里手动添加文章)
+        // ==========================================
+        const myBlogPosts = [
+            {
+                title: "我的第一篇 GitHub Pages 博客",
+                date: "2023-10-27",
+                content: "这是通过修改代码直接发布的文章。虽然稍微麻烦一点，但它是永久保存的，而且完全免费！"
+            },
+            {
+                title: "项目开发心得",
+                date: "2023-10-28",
+                content: "最近在研究 AI 智能体的集成，发现 CSS 的层级管理真的很重要..."
+            }
+            // 在这里粘贴生成器生成的代码，注意加逗号
+        ];
+
+        // ==========================================
+        // 2. 页面逻辑
+        // ==========================================
+        
+        function renderBlog() {
+            const container = document.getElementById('blog-container');
+            container.innerHTML = '';
+            myBlogPosts.slice().reverse().forEach(post => {
+                const div = document.createElement('div');
+                div.className = 'blog-post';
+                div.innerHTML = `
+                    <span class="blog-date">${post.date}</span>
+                    <h3>${post.title}</h3>
+                    <div class="blog-content">${post.content}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function showPage(id) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            const map = { 'home':0, 'courses':1, 'projects':2, 'blog':3 };
+            document.querySelectorAll('.nav-btn')[map[id]].classList.add('active');
+        }
+
+        function generateCode() {
+            const t = document.getElementById('new-title').value;
+            const c = document.getElementById('new-content').value;
+            const d = new Date().toISOString().split('T')[0];
+            
+            const code = `
+    {
+        title: "${t}",
+        date: "${d}",
+        content: "${c}"
+    },`;
+            document.getElementById('code-output').value = code;
+        }
+
+        renderBlog();
+
+        // ==========================================
+        // 3. 智能体 SDK 初始化与强力拖拽逻辑
+        // ==========================================
+
+        new EmbedLiteSDK({appId: 'bef5bee8-d797-4ed8-bd7a-34283d07ed86', code: 'embed1tGCUbVCxGyCxNqgzzik'});
+
+        const dragger = document.getElementById('agent-dragger');
+        const handle = document.getElementById('drag-handle');
+        let isDragging = false;
+        let startX, startY, initialLeft, initialTop;
+
+        handle.addEventListener('mousedown', startDrag);
+        handle.addEventListener('touchstart', startDrag, {passive: false});
+
+        function startDrag(e) {
+            e.preventDefault();
+            isDragging = true;
+            
+            if (e.type === 'touchstart') {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            } else {
+                startX = e.clientX;
+                startY = e.clientY;
             }
 
-            /* 标题颜色 */
-            h1, h2, h3, h4, h5, h6 {
-            color: #ffffff !important;
+            const rect = dragger.getBoundingClientRect();
+            initialLeft = rect.left;
+            initialTop = rect.top;
+
+            dragger.style.bottom = 'auto';
+            dragger.style.right = 'auto';
+            dragger.style.left = initialLeft + 'px';
+            dragger.style.top = initialTop + 'px';
+            
+            handle.style.cursor = 'grabbing';
+
+            document.addEventListener('mousemove', onDrag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchmove', onDrag, {passive: false});
+            document.addEventListener('touchend', stopDrag);
+        }
+
+        function onDrag(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+
+            let clientX, clientY;
+            if (e.type === 'touchmove') {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
             }
 
-            /* 强调文字 */
-            strong {
-            color: #ff6b6b !important;
+            const dx = clientX - startX;
+            const dy = clientY - startY;
+
+            dragger.style.left = (initialLeft + dx) + 'px';
+            dragger.style.top = (initialTop + dy) + 'px';
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            handle.style.cursor = 'grab';
+            document.removeEventListener('mousemove', onDrag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchmove', onDrag);
+            document.removeEventListener('touchend', stopDrag);
+        }
+
+        // 劫持 SDK 元素
+        const checkTimer = setInterval(() => {
+            const sdkElement = document.querySelector('div[id*="embed-lite"]');
+            if (sdkElement) {
+                if (sdkElement.parentElement !== dragger) {
+                    console.log("Detected Agent Bubble, hijacking...");
+                    dragger.appendChild(sdkElement);
+                    sdkElement.style.cssText = "position: static !important; margin: 0 !important; z-index: auto !important;";
+                    clearInterval(checkTimer);
+                }
             }
+        }, 500);
 
-            em {
-            color: #4ecdc4 !important;
-            }
-
-            /* 链接颜色 */
-            a {
-            color: #64b5f6 !important;
-            }
-
-            a:hover {
-            color: #90caf9 !important;
-            }
-
-            /* 代码块样式 */
-            code {
-            background-color: #2d2d2d !important;
-            color: #f8f8f2 !important;
-            }
-
-            pre {
-            background-color: #2d2d2d !important;
-            border-color: #444 !important;
-            }
-
-            /* 引用块样式 */
-            blockquote {
-            background-color: #2d2d2d !important;
-            border-left-color: #64b5f6 !important;
-            color: #cccccc !important;
-            }
-
-            /* 表格样式 */
-            table th {
-            background-color: #2d2d2d !important;
-            color: #ffffff !important;
-            }
-
-            table td {
-            background-color: #1a1a1a !important;
-            color: #ffffff !important;
-            border-color: #444 !important;
-            }
-
-            /* 水平线 */
-            hr {
-            background-color: #444 !important;
-            }
-
-      /* 如果有其他需要调整的元素，可以继续添加 */
-      </style>
-      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function () {
-    // your code here
-  });
-</script></head><body for="html-export">
-    
-    
-      <div class="crossnote markdown-preview  ">
-      
-<h1 id="this-is-my-website">This is my website </h1>
-<h2 id="hello-world">Hello World~! </h2>
-<p>Regarding this <em>new start</em>, there are lot of things to say</p>
-<p><strong>But...</strong></p>
-<p>First things first</p>
-<h2 id="welcome">Welcome! </h2>
-
-      </div>
-      
-      
-    
-    
-    
-    
-    
-    
-  
-    </body></html>
+    </script>
+</body>
+</html>
